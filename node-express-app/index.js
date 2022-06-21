@@ -92,21 +92,64 @@ connection.connect(function(err){
         res.status(200);
     });
 
-    // app.put('/restaurants/:id', function (req, res){
-    //     res.send('Route /PUT/restaurants/:id créer');
-    // });
+    app.put('/restaurants/:id', (req, res) => {
+        let id = parseInt(req.params.id);
 
-    // app.delete('/restaurants/:id', function (req, res){
-    //     res.send('Route /DELETE/ restaurants/:id créer');
-    // });
+        let sql_template = "Update ?? Set name = '" + req.body.name + "', city = '"+ req.body.city +"', nbcouverts = '"+ req.body.nbcouverts+"', terrasse = '"+ req.body.terrasse + "', parking = '"+req.body.parking + "' WHERE ?? = "+id;
+        let replaces = ['restaurants', 'id_restaurants'];
 
-    // app.post('/restaurants/:id/employe', function (req, res){
-    //     res.send('Route /POST/restaurants/:id/employe créer');
-    // });
+        sql = mysql.format(sql_template, replaces);
+        connection.query(sql, function(err, row, fields){
+            if (err) throw err;
+            res.send(row);
+        });
 
-    // app.get('/restaurants/:id/employes', function (req, res){
-    //     res.send('Route /GET/restaurants/:id/employes créer');
-    // });
+        res.status(200);
+    });
+
+    app.delete('/restaurants/:id', (req, res) => {
+        let id = parseInt(req.params.id);
+
+        let sql_template = "Delete From ?? WHERE ?? = "+id;
+        let replaces = ['restaurants', 'id_restaurants'];
+
+        sql = mysql.format(sql_template, replaces);
+        connection.query(sql, function(err, row, fields){
+            if (err) throw err;
+            res.send(row);
+        });
+        res.status(200);
+    });
+
+    app.post('/restaurants/:id/employe', (req, res) => {
+        let id = parseInt(req.params.id);
+
+        let sql = "INSERT INTO employes (first_name, last_name, hire_date, restaurant_id) " + "VALUES ('" + req.body.first_name + "', '"
+        + req.body.last_name + "', '"
+        + req.body.hire_date + "', '"
+        + id + "')";
+
+        connection.query(sql, function(err, results){
+            if (err) throw err;
+            console.log("Insert a record !");
+});
+
+        res.status(200);
+    });
+
+    app.get('/restaurants/:id/employes', (req, res) => {
+        let id = parseInt(req.params.id);
+        var sql_template = "Select * From ?? Join ?? ON ?? = "+id;
+        var replaces = ['employes', 'restaurants', 'restaurant_id'];
+
+        sql = mysql.format(sql_template, replaces);
+
+        connection.query(sql, function(err, rows){
+            if (err) throw err;
+            res.send(rows)
+        });
+        res.status(200);
+    });
 
     // app.get('/restaurants/:id/employes/:idEmploye', function (req, res){
     //     res.send('Route /GET/restaurants/:id/employes/:idEmploye créer');
