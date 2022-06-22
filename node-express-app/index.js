@@ -110,8 +110,8 @@ connection.connect(function(err){
     app.delete('/restaurants/:id', (req, res) => {
         let id = parseInt(req.params.id);
 
-        let sql_template = "Delete From ?? WHERE ?? = "+id;
-        let replaces = ['restaurants', 'id_restaurants'];
+        let sql_template = "Delete From ??, ?? USING ?? INNER JOIN ?? WHERE ??.?? = "+id+" AND ??.?? = "+id;
+        let replaces = ['restaurants', 'employes', 'restaurants', 'employes', 'restaurants', 'id_restaurants', 'employes', 'restaurant_id', 'id_restaurants'];
 
         sql = mysql.format(sql_template, replaces);
         connection.query(sql, function(err, row, fields){
@@ -139,8 +139,8 @@ connection.connect(function(err){
 
     app.get('/restaurants/:id/employes', (req, res) => {
         let id = parseInt(req.params.id);
-        var sql_template = "Select * From ?? Join ?? ON ?? = "+id;
-        var replaces = ['employes', 'restaurants', 'restaurant_id'];
+        var sql_template = "Select first_name, last_name, hire_date, name From ?? Join ?? ON ?? = ??.?? WHERE ?? = "+id;
+        var replaces = ['employes', 'restaurants', 'restaurant_id', 'restaurants', 'id_restaurants', 'restaurant_id'];
 
         sql = mysql.format(sql_template, replaces);
 
@@ -151,15 +151,51 @@ connection.connect(function(err){
         res.status(200);
     });
 
-    // app.get('/restaurants/:id/employes/:idEmploye', function (req, res){
-    //     res.send('Route /GET/restaurants/:id/employes/:idEmploye créer');
-    // });
+    app.get('/restaurants/:id/employes/:idEmploye', (req, res) => {
+        let id = parseInt(req.params.id);
+        let idEmploye = parseInt(req.params.idEmploye);
 
-    // app.put('/restaurants/:id/employes/:idEmploye', function (req, res){
-    //     res.send('Route /PUT/restaurants/:id/employes/:idEmployecréer');
-    // });
+        var sql_template = "Select first_name, last_name, hire_date, name From ?? Join ?? ON ?? = ??.?? WHERE ?? = "+id +" AND ?? = "+idEmploye;
+        var replaces = ['employes', 'restaurants', 'restaurant_id', 'restaurants', 'id_restaurants', 'restaurant_id', 'id_employes'];
 
-    // app.delete('/restaurants/:id/employes/:idEmploye', function (req, res){
-    //     res.send('Route //restaurants/:id/employes/:idEmploye créer');
-    // });
+        sql = mysql.format(sql_template, replaces);
+
+        connection.query(sql, function(err, rows){
+            if (err) throw err;
+            res.send(rows)
+        });
+        res.status(200);
+    });
+
+    app.put('/restaurants/:id/employes/:idEmploye', (req, res) => {
+        let id = parseInt(req.params.id);
+        let idEmploye = parseInt(req.params.idEmploye);
+
+        let sql_template = "Update ?? Set first_name = '" + req.body.first_name + "', last_name = '"+ req.body.last_name +"', hire_date = '"+ req.body.hire_date+"' WHERE ?? = "+id +" AND ?? = "+idEmploye;
+        let replaces = ['employes', 'restaurant_id', 'id_employes'];
+
+        sql = mysql.format(sql_template, replaces);
+        connection.query(sql, function(err, row, fields){
+            if (err) throw err;
+            res.send(row);
+        });
+
+        res.status(200);
+    });
+
+    app.delete('/restaurants/:id/employes/:idEmploye', function (req, res){
+        let id = parseInt(req.params.id);
+        let idEmploye = parseInt(req.params.idEmploye);
+
+        let sql_template = "Delete From ?? WHERE ?? = "+id +" AND ?? = "+idEmploye;
+        let replaces = ['employes', 'restaurant_id', 'id_employes'];
+
+        sql = mysql.format(sql_template, replaces);
+        connection.query(sql, function(err, row, fields){
+            if (err) throw err;
+            res.send(row);
+        });
+        res.status(200);
+    });
+
 });
