@@ -6,11 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 </head>
 <body>
     <div id="app">
         <ul>
-            <li v-for="restaurant in restaurants"> {{ restaurant }} </li>
+            <li v-for="restaurant in restaurants">{{restaurant}}</li>
         </ul>
         <button v-on:click="update()">Mettre à jour</button>
     </div>
@@ -23,8 +24,9 @@
             },
             methods: {
                 update() {
-                    axios.get("http://127.0.0.1:5000/restaurants")
-                    .then(res => console.log(res))
+                    axios.get("http://127.0.0.1:5000/restaurants/1/employes")
+                        .then(res => this.restaurants = res.data)
+                        .catch(error => this.restaurants = [{"name":"Erreur de chargement"}])
                 }
             },
         });
