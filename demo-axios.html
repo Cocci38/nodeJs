@@ -11,7 +11,7 @@
 <body>
     <div id="app">
         <ul>
-            <li v-for="restaurant in restaurants">{{restaurant}}</li>
+            <li v-for="restaurant in restaurants">{{restaurant.name}} à {{restaurant.city}} <br> Nombre de couverts : {{restaurant.nbcouverts}} <br>Terrasse : {{restaurant.terrasse}} <br> Parking : {{restaurant.parking}} </li>
         </ul>
         <button v-on:click="update()">Mettre à jour</button>
     </div>
@@ -20,17 +20,21 @@
         let app = new Vue({
             el: "#app",
             data: {
-                restaurants: ["Resto 1", "Resto 2", "Resto 3"]
+                restaurants: ["Resto 1", "Resto 2", "Resto 3"],
+            },
+            mounted: function() {
+                axios.get("http://127.0.0.1:5000/restaurants")
+                        .then(res => this.restaurants = res.data)
+                        .catch(error => this.restaurants = [{"name":"Erreur de chargement"}])
             },
             methods: {
                 update() {
-                    axios.get("http://127.0.0.1:5000/restaurants/1/employes")
+                    axios.get("http://127.0.0.1:5000/restaurants")
                         .then(res => this.restaurants = res.data)
                         .catch(error => this.restaurants = [{"name":"Erreur de chargement"}])
                 }
             },
         });
-
     </script>
 </body>
 </html>
