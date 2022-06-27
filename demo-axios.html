@@ -11,11 +11,21 @@
 <body>
     <div id="app">
         <ul>
+            
             <li v-for="restaurant in restaurants">{{restaurant.name}} à {{restaurant.city}} <br> Nombre de couverts : {{restaurant.nbcouverts}} <br>Terrasse : {{restaurant.terrasse}} <br> Parking : {{restaurant.parking}} </li>
+            <!-- <li v-for="employe in employes">{{employe.first_name}}</li> -->
         </ul>
         <button v-on:click="update()">Mettre à jour</button>
     </div>
-
+    <div id="emp">
+        <ul>
+            <li v-for="employe in employes" >
+                <span v-if="employe.restaurant_id == 1">{{employe.first_name}} {{employe.last_name}} {{employe.hire_date}} </span> <br>
+                <span v-if="employe.restaurant_id == 2">{{employe.first_name}} {{employe.last_name}} {{employe.hire_date}} </span> <br>
+                <span v-if="employe.restaurant_id == 3">{{employe.first_name}} {{employe.last_name}} {{employe.hire_date}} </span>
+            </li>
+        </ul>
+        </div>
     <script>
         let app = new Vue({
             el: "#app",
@@ -29,12 +39,51 @@
             },
             methods: {
                 update() {
-                    axios.get("http://127.0.0.1:5000/restaurants")
-                        .then(res => this.restaurants = res.data)
-                        .catch(error => this.restaurants = [{"name":"Erreur de chargement"}])
+                    let emp = new Vue({
+                    el: "#emp",
+                    data: {
+                        employes: [""],
+                },
+                mounted: function() {
+                    axios.get("http://127.0.0.1:5000/restaurants/1/employes")
+                            .then(res => this.employes = res.data)
+                            .catch(error => this.employes = [{"name":"Erreur de chargement"}])
+                
+                },
+            });
+                    
                 }
             },
         });
+        // let emp = new Vue({
+        //     el: "#emp",
+        //     data: {
+        //         employes: ["Resto 1", "Resto 2", "Resto 3"],
+        //     },
+        //     mounted: function() {
+        //         axios.get("http://127.0.0.1:5000/restaurants/1/employes")
+        //                 .then(res => this.employes = res.data)
+        //                 .catch(error => this.employes = [{"name":"Erreur de chargement"}])
+        //     },
+        //     methods: {
+        //         update() {
+        //             if ("http://127.0.0.1:5000/restaurants/1/employes") {
+        //                 axios.get("http://127.0.0.1:5000/restaurants/1/employes")
+        //                     .then(res => this.employes = res.data)
+        //                     .catch(error => this.employes = [{"name":"Erreur de chargement"}])
+        //             }else if ("http://127.0.0.1:5000/restaurants/2/employes") {
+        //                 axios.get("http://127.0.0.1:5000/restaurants/2/employes")
+        //                     .then(res => this.employes = res.data)
+        //                     .catch(error => this.employes = [{"name":"Erreur de chargement"}])
+        //             }else{
+        //                 axios.get("http://127.0.0.1:5000/restaurants/3/employes")
+        //                     .then(res => this.employes = res.data)
+        //                     .catch(error => this.employes = [{"name":"Erreur de chargement"}])
+        //             }
+                    
+        //         }
+        //     },
+        // });
     </script>
 </body>
 </html>
