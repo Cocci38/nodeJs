@@ -13,18 +13,17 @@
         <ul>
             
             <li v-for="restaurant in restaurants">{{restaurant.name}} à {{restaurant.city}} <br> Nombre de couverts : {{restaurant.nbcouverts}} <br>Terrasse : {{restaurant.terrasse}} <br> Parking : {{restaurant.parking}} </li>
-            <!-- <li v-for="employe in employes">{{employe.first_name}}</li> -->
         </ul>
         <button v-on:click="update()">Mettre à jour</button>
     </div>
     <div id="emp">
-        <ul>
-            <li v-for="employe in employes" >
-                <span v-if="employe.restaurant_id == 1">{{employe.first_name}} {{employe.last_name}} {{employe.hire_date}} </span> <br>
-                <span v-if="employe.restaurant_id == 2">{{employe.first_name}} {{employe.last_name}} {{employe.hire_date}} </span> <br>
-                <span v-if="employe.restaurant_id == 3">{{employe.first_name}} {{employe.last_name}} {{employe.hire_date}} </span>
+        {{employes[0][0]}} {{employes[0][1]}}<br> {{employes[1]}} <br> {{employes[2]}}
+        <!-- <ul>
+
+            <li v-for="(obj, index) in employes" :key="index">
+                <span v-for="(item, i) in obj.res" :key="i">{{employe.first_name}} {{employe.last_name}} {{employe.hire_date}} </span><br>
             </li>
-        </ul>
+        </ul> -->
         </div>
     <script>
         let app = new Vue({
@@ -42,12 +41,17 @@
                     let emp = new Vue({
                     el: "#emp",
                     data: {
-                        employes: [""],
+                        employes: [],
                 },
                 mounted: function() {
-                    axios.get("http://127.0.0.1:5000/restaurants/1/employes")
-                            .then(res => this.employes = res.data)
-                            .catch(error => this.employes = [{"name":"Erreur de chargement"}])
+                    for (let index = 1; index <= 3; index++) {
+                        axios.get("http://127.0.0.1:5000/restaurants/"+ index + "/employes")
+                            .then(res => this.employes.push( res.data))
+                            .catch(error => this.employes = [{"name":"Erreur de chargement"}])                       
+                    }
+                    // axios.get("http://127.0.0.1:5000/restaurants/1/employes")
+                    //         .then(res => this.employes = res.data)
+                    //         .catch(error => this.employes = [{"name":"Erreur de chargement"}])
                 
                 },
             });
