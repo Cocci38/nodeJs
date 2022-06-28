@@ -17,7 +17,9 @@
         <button v-on:click="update()">Mettre à jour</button>
     </div>
     <div id="emp">
-        {{employes[0][0]}} {{employes[0][1]}}<br> {{employes[1]}} <br> {{employes[2]}}
+        <span v-for="employe in employes">{{employe[0].first_name}}&nbsp; {{employe[1].first_name}}&nbsp;</span>
+        <!-- <span v-if="empoye[0]">{{first_name}}</span> -->
+        <!-- {{employes[0][0].first_name}} {{employes[0][1]}}<br> {{employes[1]}} <br> {{employes[2]}} -->
         <!-- <ul>
 
             <li v-for="(obj, index) in employes" :key="index">
