@@ -32,8 +32,9 @@
         </thead>
         <tbody v-for="employe, index in employes">
             <tr>
-                <td> {{employe[0].name}}</td>
-                <td v-for="value, index in employe">{{value.first_name}} {{value.last_name}} <br></td>
+                <td> {{employe[0].name}} <button  v-on:click="suprim(employe[0].restaurant_id)"  >Supprimer le restaurant</button></td>
+                <td v-for="value, index in employe">{{value.first_name}} {{value.last_name}} &nbsp;&nbsp;  <button  v-on:click="suprimEmploye(value.id_employes) "  >Supprimer l'employé</button></td>
+                
             </tr>
         </tbody>
     </table>
@@ -63,9 +64,15 @@
                             .catch(error => this.employes = [{"name":"Erreur de chargement"}])                       
                     }
                 },
-                // methods: {
-                //     suprim()
-                // },
+                methods: {
+                    suprim(index) {
+                        axios.delete("http://127.0.0.1:5000/restaurants/" + index )
+                    },
+                    suprimEmploye(index, employeIndex) {
+                        console.log(index, employeIndex);
+                        axios.delete("http://127.0.0.1:5000/restaurants/" + index + "employes" + employeIndex)
+                    }
+                },
             });
                     
         //         }
