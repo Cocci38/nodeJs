@@ -9,38 +9,48 @@
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 </head>
 <body>
-    <div id="app">
+    <!-- <div id="app">
         <ul>
-            
-            <li v-for="restaurant in restaurants">{{restaurant.name}} à {{restaurant.city}} <br> Nombre de couverts : {{restaurant.nbcouverts}} <br>Terrasse : {{restaurant.terrasse}} <br> Parking : {{restaurant.parking}} </li>
+            <li v-for="restaurant in restaurants">{{restaurant.name}} à {{restaurant.city}} <br></li>
         </ul>
         <button v-on:click="update()">Mettre à jour</button>
-    </div>
-    <div id="emp">
-        <!-- <span v-for="employe in employes">{{employe[0].first_name}}&nbsp; {{employe[1].first_name}}&nbsp;</span> -->
-        <!-- {{employes}} -->
+    </div> -->
+    <!-- <div id="emp">
         <span v-for="employe, index in employes">
+            <br><p>{{employe[0].name}}</p> {{employe[0].city}} {{employe[0].nbcouverts}} couverts {{employe[0].terrasse}} {{employe[0].parking}}<br>
             <span v-for="value, index in employe">
-                {{value.first_name}} {{value.last_name}} {{value.hire_date}} {{value.name}} <br>
+                {{value.first_name}} {{value.last_name}} {{value.hire_date}}  <br>
             </span>
-            <!-- <span v-if="index == 0">{{employe[0].last_name}} {{employe[1].last_name}}</span><br>
-            <span v-if="index == 1">{{employe}}</span><br>
-            <span v-if="index == 2">{{employe}}</span><br> -->
         </span>
-        </div>
+    </div> -->
+    <table  id="emp">
+        <thead >
+            <tr>
+                <th >Nom du restaurant</th>
+                <th colspan="3">Employes</th>
+            </tr>
+        </thead>
+        <tbody v-for="employe, index in employes">
+            <tr>
+                <td> {{employe[0].name}}</td>
+                <td v-for="value, index in employe">{{value.first_name}} {{value.last_name}} <br></td>
+            </tr>
+        </tbody>
+    </table>
+        
     <script>
-        let app = new Vue({
-            el: "#app",
-            data: {
-                restaurants: ["Resto 1", "Resto 2", "Resto 3"],
-            },
-            mounted: function() {
-                axios.get("http://127.0.0.1:5000/restaurants")
-                        .then(res => this.restaurants = res.data)
-                        .catch(error => this.restaurants = [{"name":"Erreur de chargement"}])
-            },
-            methods: {
-                update() {
+        // let app = new Vue({
+        //     el: "#app",
+        //     data: {
+        //         restaurants: ["Resto 1", "Resto 2", "Resto 3"],
+        //     },
+        //     mounted: function() {
+        //         axios.get("http://127.0.0.1:5000/restaurants")
+        //                 .then(res => this.restaurants = res.data)
+        //                 .catch(error => this.restaurants = [{"name":"Erreur de chargement"}])
+        //     },
+        //     methods: {
+        //         update() {
                     let emp = new Vue({
                     el: "#emp",
                     data: {
@@ -53,40 +63,15 @@
                             .catch(error => this.employes = [{"name":"Erreur de chargement"}])                       
                     }
                 },
+                // methods: {
+                //     suprim()
+                // },
             });
-                    
-                }
-            },
-        });
-        // let emp = new Vue({
-        //     el: "#emp",
-        //     data: {
-        //         employes: ["Resto 1", "Resto 2", "Resto 3"],
-        //     },
-        //     mounted: function() {
-        //         axios.get("http://127.0.0.1:5000/restaurants/1/employes")
-        //                 .then(res => this.employes = res.data)
-        //                 .catch(error => this.employes = [{"name":"Erreur de chargement"}])
-        //     },
-        //     methods: {
-        //         update() {
-        //             if ("http://127.0.0.1:5000/restaurants/1/employes") {
-        //                 axios.get("http://127.0.0.1:5000/restaurants/1/employes")
-        //                     .then(res => this.employes = res.data)
-        //                     .catch(error => this.employes = [{"name":"Erreur de chargement"}])
-        //             }else if ("http://127.0.0.1:5000/restaurants/2/employes") {
-        //                 axios.get("http://127.0.0.1:5000/restaurants/2/employes")
-        //                     .then(res => this.employes = res.data)
-        //                     .catch(error => this.employes = [{"name":"Erreur de chargement"}])
-        //             }else{
-        //                 axios.get("http://127.0.0.1:5000/restaurants/3/employes")
-        //                     .then(res => this.employes = res.data)
-        //                     .catch(error => this.employes = [{"name":"Erreur de chargement"}])
-        //             }
                     
         //         }
         //     },
         // });
+
     </script>
 </body>
 </html>
