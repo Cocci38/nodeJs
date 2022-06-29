@@ -17,15 +17,16 @@
         <button v-on:click="update()">Mettre à jour</button>
     </div>
     <div id="emp">
-        <span v-for="employe in employes">{{employe[0].first_name}}&nbsp; {{employe[1].first_name}}&nbsp;</span>
-        <!-- <span v-if="empoye[0]">{{first_name}}</span> -->
-        <!-- {{employes[0][0].first_name}} {{employes[0][1]}}<br> {{employes[1]}} <br> {{employes[2]}} -->
-        <!-- <ul>
-
-            <li v-for="(obj, index) in employes" :key="index">
-                <span v-for="(item, i) in obj.res" :key="i">{{employe.first_name}} {{employe.last_name}} {{employe.hire_date}} </span><br>
-            </li>
-        </ul> -->
+        <!-- <span v-for="employe in employes">{{employe[0].first_name}}&nbsp; {{employe[1].first_name}}&nbsp;</span> -->
+        <!-- {{employes}} -->
+        <span v-for="employe, index in employes">
+            <span v-for="value, index in employe">
+                {{value.first_name}} {{value.last_name}} {{value.hire_date}} {{value.name}} <br>
+            </span>
+            <!-- <span v-if="index == 0">{{employe[0].last_name}} {{employe[1].last_name}}</span><br>
+            <span v-if="index == 1">{{employe}}</span><br>
+            <span v-if="index == 2">{{employe}}</span><br> -->
+        </span>
         </div>
     <script>
         let app = new Vue({
@@ -51,10 +52,6 @@
                             .then(res => this.employes.push( res.data))
                             .catch(error => this.employes = [{"name":"Erreur de chargement"}])                       
                     }
-                    // axios.get("http://127.0.0.1:5000/restaurants/1/employes")
-                    //         .then(res => this.employes = res.data)
-                    //         .catch(error => this.employes = [{"name":"Erreur de chargement"}])
-                
                 },
             });
                     
