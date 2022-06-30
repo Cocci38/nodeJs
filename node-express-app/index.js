@@ -198,4 +198,18 @@ connection.connect(function(err){
         res.status(200);
     });
 
+    app.delete('/employe/:id', (req, res) => {
+        let id = parseInt(req.params.id);
+    
+        let sql_template = "Delete From ?? WHERE ?? = "+id;
+        let replaces = ['employes', 'id_employes'];
+    
+        sql = mysql.format(sql_template, replaces);
+        connection.query(sql, function(err, row, fields){
+            if (err) throw err;
+            res.send(row);
+        });
+        res.status(200);
+    });
+
 });
