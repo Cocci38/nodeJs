@@ -32,8 +32,8 @@
         </thead>
         <tbody v-for="employe, index in employes">
             <tr>
-                <td> {{employe[0].name}} <button  v-on:click="suprim(employe[0].restaurant_id)"  >Supprimer le restaurant</button></td>
-                <td v-for="value, index in employe">{{value.first_name}} {{value.last_name}} &nbsp;&nbsp;  <button  v-on:click="suprimEmploye(value.id_employes) "  >Supprimer l'employé</button></td>
+                <td> {{employe[0].name}} <button  v-on:click="suprim(employe[0].restaurant_id)"  >X</button></td>
+                <td v-for="value, index in employe">{{value.first_name}} {{value.last_name}} &nbsp;&nbsp;  <button  v-on:click="suprimEmploye(value.id_employes) "  >X</button></td>
                 
             </tr>
         </tbody>
