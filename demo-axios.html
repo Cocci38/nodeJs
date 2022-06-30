@@ -68,9 +68,9 @@
                     suprim(index) {
                         axios.delete("http://127.0.0.1:5000/restaurants/" + index )
                     },
-                    suprimEmploye(index, employeIndex) {
-                        console.log(index, employeIndex);
-                        axios.delete("http://127.0.0.1:5000/restaurants/" + index + "employes" + employeIndex)
+                    suprimEmploye(index) {
+                        // console.log(index);
+                        axios.delete("http://127.0.0.1:5000/employe/" + index)
                     }
                 },
             });
