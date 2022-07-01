@@ -1,5 +1,6 @@
 <template>
   <div>
+    <router-link to="/resto">Ajouter un restaurant</router-link>
     <h1>Liste de mes restaurants</h1>
     <!-- <p @click="increment">Il y a {{total}} restaurants</p> -->
 
@@ -10,7 +11,7 @@
       <strong>Employes : </strong>
       <span :key="index" v-for="(employe, index) in employes">
         <span v-if="restaurant.id_restaurants === employe.restaurant_id">
-          {{ employe.first_name }} {{ employe.last_name }} <button  v-on:click="suprimEmploye(employe.id_employes)"  >X</button>
+          {{ employe.first_name }} {{ employe.last_name }} <button  v-on:click="suprimEmploye(employe.id_employes)" >X</button>
         </span>
       </span>
     </p>
@@ -43,11 +44,11 @@ export default {
   methods: {
       suprim(index) {
         // console.log(index);
-        // axios.delete("http://127.0.0.1:5000/restaurants/" + index )
+        axios.delete("http://127.0.0.1:5000/restaurants/" + index )
       },
       suprimEmploye(index) {
           // console.log(index);
-          // axios.delete("http://127.0.0.1:5000/employe/" + index)
+          axios.delete("http://127.0.0.1:5000/employe/" + index)
       }
   //     increment() {
   //         this.total += 1;
