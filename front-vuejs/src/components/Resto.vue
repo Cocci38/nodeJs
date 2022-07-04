@@ -12,7 +12,7 @@
         </p>
         <p>
             <label for="nbcouverts">Nombre de couverts</label>
-            <input id="nbcouverts" v-model="form.nbcouverts" type="text" name="nbcouverts">
+            <input id="nbcouverts" v-model="form.nbcouverts" type="number" min="1" name="nbcouverts">
         </p>
         <p> Terrasse :
             <label for="oui">Oui</label>

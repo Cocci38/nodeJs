@@ -1,6 +1,7 @@
 <template>
   <div>
-    <router-link to="/resto">Ajouter un restaurant</router-link>
+    <router-link to="/resto">Ajouter un restaurant </router-link>
+    <router-link to="/employe">Ajouter un employe</router-link>
     <h1>Liste de mes restaurants</h1>
     <!-- <p @click="increment">Il y a {{total}} restaurants</p> -->
 
