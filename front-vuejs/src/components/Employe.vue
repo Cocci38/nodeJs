@@ -15,7 +15,8 @@
         </p>
         <p>
             <select v-model="form.restaurant_id">
-                <option :key="index" v-for="(restaurant, index) in restaurants">{{restaurant.name}}</option>
+                <option :key="index" v-for="(restaurant, index) in restaurants" :value="restaurant.id_restaurants">
+                {{restaurant.name}}</option>
             </select>
         </p>
         <p>
@@ -47,8 +48,8 @@ export default {
             );
         },
     methods: {
-        submit(index) {
-            axios.post("http://127.0.0.1:5000//restaurants/" + index + "/employe",this.form);
+        submit() {
+            axios.post("http://127.0.0.1:5000/employe",this.form);
         },
     },
 };
