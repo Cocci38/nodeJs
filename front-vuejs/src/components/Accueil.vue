@@ -4,7 +4,6 @@
     <router-link to="/employe">Ajouter un employe</router-link>
     <h1>Liste de mes restaurants</h1>
     <!-- <p @click="increment">Il y a {{total}} restaurants</p> -->
-
     <p :key="index" v-for="(restaurant, index) in restaurants">
       {{ restaurant.name }} à {{ restaurant.city }} <br>
       {{ restaurant.nbcouverts }} couverts <br> Terrasse : {{ restaurant.terrasse }} <br>
