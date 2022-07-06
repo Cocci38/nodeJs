@@ -2,6 +2,9 @@
     <div class="home">
 
         <h1>Ajouter un restaurant</h1>
+        <div v-if="errors.length">
+            <p :key="index" v-for="error, index in errors"> {{error}} </p>
+        </div>
         <p>
             <label for="name">Nom</label>
             <input id="name" v-model="form.name" type="text" name="name">
@@ -39,6 +42,7 @@ export default {
     name: 'Resto',
     data() {
         return {
+            errors: [],
             form: {
                 name: null,
                 city: null,
@@ -50,6 +54,26 @@ export default {
     },
     methods: {
         submit() {
+            this.errors = [];
+
+            if (!this.form.name) {
+                this.errors.push("Nom du restaurant requis");
+            }
+            if (!this.form.city) {
+                this.errors.push("Ville requise");
+            }
+            if (!this.form.nbcouverts || !Number.isInteger(this.form.nbcouverts)) {
+                this.errors.push("Nombre de couverts requis");
+            }
+            if (!this.form.terrasse) {
+                this.errors.push("Terrasse requise");
+            }
+            if (!this.form.parking) {
+                this.errors.push("Parking requis");
+            }
+            if (this.errors.length) {
+                return false;
+            }
             axios.post('http://127.0.0.1:5000/restaurant', this.form)
         }
     }

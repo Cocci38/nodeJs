@@ -1,6 +1,9 @@
 <template>
     <div class="hello">
         <h1>Ajouter un employé</h1>
+        <div v-if="errors.length">
+            <p :key="index" v-for="error, index in errors"> {{error}} </p>
+        </div>
         <p>
             <label for="first_name">Prénom</label>
             <input type="text" id="first_name" v-model="form.first_name" />
@@ -13,8 +16,10 @@
             <label for="hire_date">Date d'embauche</label>
             <input type="date" id="hire_date" v-model="form.hire_date" />
         </p>
-        <p>
-            <select v-model="form.restaurant_id">
+        <p> Choisissez un restaurant
+            <select v-model="form.restaurant_id" >
+                <option disabled value="" >Choisissez</option>
+                
                 <option :key="index" v-for="(restaurant, index) in restaurants" :value="restaurant.id_restaurants">
                 {{restaurant.name}}</option>
             </select>
@@ -30,14 +35,14 @@ export default {
     name: "Employe",
     data() {
         return {
+            errors: [],
             restaurants: null,
             form: {
             first_name: null,
             last_name: null,
             hire_date: null,
             restaurant_id: null,
-        }
-        
+        },
         };
     },
     mounted() {
@@ -49,7 +54,26 @@ export default {
         },
     methods: {
         submit() {
-            axios.post("http://127.0.0.1:5000/employe",this.form);
+            this.errors = [];
+            if(!this.form.first_name){
+                this.errors.push('Prénom requis.');
+            }
+            if(!this.form.last_name){
+                this.errors.push('Nom requis.');
+            }
+            if(!this.form.hire_date || !Date.isDate(this.form.hire_date)){
+                this.errors.push('Date d\'embauche requise.');
+            }
+            if(!this.form.restaurant_id){
+                this.errors.push('Restaurant requis.');
+            }
+            if (this.errors.length) {
+                return false;
+            }
+            axios.post("http://127.0.0.1:5000/employe",this.form)
+                    .then(function(response){
+                        this.form = response.data;
+                    }.bind(this));
         },
     },
 };
