@@ -2,6 +2,7 @@
     <div class="home">
 
         <h1>Ajouter un restaurant</h1>
+        <form @submit="submit">
         <div v-if="errors.length">
             <p :key="index" v-for="error, index in errors"> {{error}} </p>
         </div>
@@ -32,8 +33,9 @@
             <input id="non" type="radio" v-model="form.parking" value="non">
         </p>
         <p>
-            <button v-on:click="submit">Valider</button>
+            <button type="submit">Valider</button>
         </p>
+        </form>
     </div>
 </template>
 <script>
@@ -62,7 +64,7 @@ export default {
             if (!this.form.city) {
                 this.errors.push("Ville requise");
             }
-            if (!this.form.nbcouverts || !Number.isInteger(this.form.nbcouverts)) {
+            if (!this.form.nbcouverts && !Number.isInteger(this.form.nbcouverts)) {
                 this.errors.push("Nombre de couverts requis");
             }
             if (!this.form.terrasse) {

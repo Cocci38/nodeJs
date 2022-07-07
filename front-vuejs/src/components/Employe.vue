@@ -1,6 +1,7 @@
 <template>
     <div class="hello">
         <h1>Ajouter un employé</h1>
+        <form  @submit="submit">
         <div v-if="errors.length">
             <p :key="index" v-for="error, index in errors"> {{error}} </p>
         </div>
@@ -25,8 +26,9 @@
             </select>
         </p>
         <p>
-            <button v-on:click="submit">Valider</button>
+            <button type="submit">Valider</button>
         </p>
+        </form>
     </div>
 </template>
 <script>
@@ -61,7 +63,7 @@ export default {
             if(!this.form.last_name){
                 this.errors.push('Nom requis.');
             }
-            if(!this.form.hire_date || !Date.isDate(this.form.hire_date)){
+            if(!this.form.hire_date ){
                 this.errors.push('Date d\'embauche requise.');
             }
             if(!this.form.restaurant_id){

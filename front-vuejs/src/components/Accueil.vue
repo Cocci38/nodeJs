@@ -44,7 +44,7 @@ export default {
   methods: {
       suprim(index) {
         // console.log(index);
-        axios.delete("http://127.0.0.1:5000/restaurants/" + index )
+        axios.delete("http://127.0.0.1:5000/restaurant/" + index )
       },
       suprimEmploye(index) {
           // console.log(index);
