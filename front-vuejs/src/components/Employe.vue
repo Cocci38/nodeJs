@@ -1,7 +1,7 @@
 <template>
     <div class="hello">
         <h1>Ajouter un employé</h1>
-        <form  @submit="submit">
+        <!-- <form  @submit="submit"> -->
         <div v-if="errors.length">
             <p :key="index" v-for="error, index in errors"> {{error}} </p>
         </div>
@@ -26,9 +26,9 @@
             </select>
         </p>
         <p>
-            <button type="submit">Valider</button>
+            <button v-on:click="submit">Valider</button>
         </p>
-        </form>
+        <!-- </form> -->
     </div>
 </template>
 <script>
@@ -57,6 +57,15 @@ export default {
     methods: {
         submit() {
             this.errors = [];
+            let nomRegExp = RegExp("^[a-zA-Z-]{3,}$", "g");
+            // let testNom = nomRegExp.test(this.form.first_name);
+            // if (testNom == false) {
+            //     this.errors.push('Le nombre d\'écriture .');
+            // }
+            if (this.form.first_name != this.form.first_name.match(nomRegExp)) {
+                console.log('erreur');
+                this.errors.push('Le nombre d\'écriture .');
+            }
             if(!this.form.first_name){
                 this.errors.push('Prénom requis.');
             }
@@ -69,9 +78,13 @@ export default {
             if(!this.form.restaurant_id){
                 this.errors.push('Restaurant requis.');
             }
+            setTimeout(function(){
+                console.log('error');
+            },3000);
             if (this.errors.length) {
                 return false;
             }
+
             axios.post("http://127.0.0.1:5000/employe",this.form)
                     .then(function(response){
                         this.form = response.data;
