@@ -57,7 +57,7 @@ export default {
     methods: {
         submit() {
             this.errors = [];
-            let nomRegExp = RegExp('^[a-zA-Z-]{3,}$', 'g');
+            let nomRegExp = RegExp('^[a-zA-Z-\']{3,}$', 'g');
             // let testNom = nomRegExp.test(this.form.first_name);
             // if (testNom == false) {
             //     this.errors.push('Le nombre d\'écriture .');
