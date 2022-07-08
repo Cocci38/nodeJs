@@ -30,6 +30,10 @@ export default {
     };
   },
   mounted() {
+this.update();
+  },
+  methods: {
+    update(){
     axios
       .get("http://127.0.0.1:5000/restaurants")
       .then((res) => (this.restaurants = res.data))
@@ -40,15 +44,16 @@ export default {
       .get("http://127.0.0.1:5000/employes")
       .then((res) => (this.employes = res.data))
       .catch((error) => (this.employes = [{ name: "Erreur de chargement" }]));
-  },
-  methods: {
+    },
       suprim(index) {
         // console.log(index);
         axios.delete("http://127.0.0.1:5000/restaurant/" + index )
+        this.update();
       },
       suprimEmploye(index) {
           // console.log(index);
           axios.delete("http://127.0.0.1:5000/employe/" + index)
+          this.update();
       }
   //     increment() {
   //         this.total += 1;

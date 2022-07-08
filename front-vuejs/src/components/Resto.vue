@@ -2,7 +2,7 @@
     <div class="home">
 
         <h1>Ajouter un restaurant</h1>
-        <form @submit="submit">
+        <form @submit.prevent="submit">
         <div v-if="errors.length">
             <p :key="index" v-for="error, index in errors"> {{error}} </p>
         </div>
