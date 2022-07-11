@@ -1,7 +1,7 @@
 <template>
     <div class="hello">
         <h1>Ajouter un employé</h1>
-        <!-- <form  @submit="submit"> -->
+        <form  @submit.prevent="submit">
         <div v-if="errors.length">
             <p :key="index" v-for="error, index in errors"> {{error}} </p>
         </div>
@@ -26,9 +26,9 @@
             </select>
         </p>
         <p>
-            <button v-on:click="submit">Valider</button>
+            <button type="submit">Valider</button>
         </p>
-        <!-- </form> -->
+        </form>
     </div>
 </template>
 <script>
@@ -82,9 +82,6 @@ export default {
             if(!this.form.restaurant_id){
                 this.errors.push('Restaurant requis.');
             }
-            setTimeout(function(){
-                console.log('error');
-            },3000);
             if (this.errors.length) {
                 return false;
             }
