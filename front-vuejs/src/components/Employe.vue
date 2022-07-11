@@ -26,7 +26,7 @@
             </select>
         </p>
         <p>
-            <button type="submit">Valider</button>
+            <button id="bouton" type="submit">Valider</button>
         </p>
         </form>
     </div>
@@ -53,25 +53,59 @@ export default {
             .then((res) => (this.restaurants = res.data))
             .catch((error) => (this.restaurants = [{ name: "Erreur de chargement" }])
             );
+            // var bouton = document.getElementById('bouton');
+            // var input = document.getElementsByTagName('input');
+            // var input1 = document.getElementById('last_name');
+            // var input2 = document.getElementById('first_name');
+            // bouton.disabled = true;
+            // console.log(input1);
+            // console.log(input2);
+            // input = input.addEventListener("change", statut)
+            // function statut(){
+                    // if (input.value == null) {
+                    //     console.log(input);
+                    //     bouton.disabled = true;
+                    // }
+                    // else{
+                    //     bouton.disabled = false;
+                    // }
+
+            // };
         },
     methods: {
         submit() {
+            // let bouton = document.getElementById('bouton');
+            // var input = document.getElementsByTagName('input');
             this.errors = [];
             let nomRegExp = RegExp('^[a-zA-Z-\']{3,}$', 'g');
             // let testNom = nomRegExp.test(this.form.first_name);
             // if (testNom == false) {
             //     this.errors.push('Le nombre d\'écriture .');
             // }
-            if (this.form.first_name != this.form.first_name.match(nomRegExp)) {
+            // if (input != "") {
+            //     bouton.disabled = true;
+            // }else {
+            //     bouton.disabled = false;
+            // }
+            // if (!this.form.first_name || !this.form.last_name || !this.form.hire_date || !this.form.restaurant_id) {
+            //     bouton.disabled = true;
+            // } else {
+            //     bouton.disabled = false;
+            // }
+            if (this.form.first_name) {
+                if (this.form.first_name != this.form.first_name.match(nomRegExp)) {
                 console.log('erreur');
                 this.errors.push('Le nombre d\'écriture .');
+                }
             }
             if(!this.form.first_name){
                 this.errors.push('Prénom requis.');
             }
-            if (this.form.last_name != this.form.last_name.match(nomRegExp)) {
-                console.log('erreur');
-                this.errors.push('Le nombre d\'écriture .');
+            if (this.form.last_name) {
+                if (this.form.last_name != this.form.last_name.match(nomRegExp)) {
+                    console.log('erreur');
+                    this.errors.push('Le nombre d\'écriture .');
+                }
             }
             if(!this.form.last_name){
                 this.errors.push('Nom requis.');
@@ -82,6 +116,7 @@ export default {
             if(!this.form.restaurant_id){
                 this.errors.push('Restaurant requis.');
             }
+
             if (this.errors.length) {
                 return false;
             }
