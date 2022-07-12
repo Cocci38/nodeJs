@@ -20,20 +20,20 @@
         </p>
         <p> Terrasse :
             <label for="oui">Oui</label>
-            <input id="oui" type="radio"  v-model="form.terrasse" value="oui">
+            <input id="tOui" type="radio"  v-model="form.terrasse" value="oui">
 
             <label for="non">Non</label>
-            <input id="non" type="radio" v-model="form.terrasse" value="non">
+            <input id="tNon" type="radio" v-model="form.terrasse" value="non">
         </p>
         <p> Parking :
             <label for="oui">Oui</label>
-            <input id="oui" type="radio" v-model="form.parking" value="oui">
+            <input id="pOui" type="radio" v-model="form.parking" value="oui">
 
             <label for="non">Non</label>
-            <input id="non" type="radio" v-model="form.parking" value="non">
+            <input id="pNon" type="radio" v-model="form.parking" value="non">
         </p>
         <p>
-            <button type="submit">Valider</button>
+            <button id="bouton" type="submit">Valider</button>
         </p>
         </form>
     </div>
@@ -56,10 +56,54 @@ export default {
     },
     methods: {
         submit() {
+            let bouton = document.getElementById('bouton');
             this.errors = [];
+            let nomRegExp = RegExp('^[a-zA-Z-\']{3,}$', 'g');
 
+            if (this.errors) {
+                bouton.disabled = true;
+            }
+            var inputName = document.getElementById('name').addEventListener('input', (e) =>{
+                console.log(e.target.value);
+                // last.innerHTML = e.target.value;
+                if (e.target.value == this.form.name.match(nomRegExp)) {
+                    bouton.disabled = false;
+                }else {
+                    bouton.disabled = true;
+                }
+            });
+            var inputCity = document.getElementById('city').addEventListener('input', (e) =>{
+                console.log(e.target.value);
+                // last.innerHTML = e.target.value;
+                if (e.target.value == this.form.city.match(nomRegExp)) {
+                    bouton.disabled = false;
+                }else {
+                    bouton.disabled = true;
+                }
+            });
+            var inputNbcouverts = document.getElementById('nbcouverts').addEventListener('input', (e) =>{
+                console.log(e.target.value);
+                // last.innerHTML = e.target.value;
+                if (!this.form.nbcouverts) {
+                    bouton.disabled = true;
+                }else {
+                    bouton.disabled = false;
+                }
+            });
+            if (this.form.name) {
+                if (this.form.name != this.form.name.match(nomRegExp)) {
+                console.log('erreur');
+                this.errors.push('Le nombre d\'écriture .');
+                }
+            }
             if (!this.form.name) {
                 this.errors.push("Nom du restaurant requis");
+            }
+            if (this.form.city) {
+                if (this.form.city != this.form.city.match(nomRegExp)) {
+                console.log('erreur');
+                this.errors.push('Le nombre d\'écriture .');
+                }
             }
             if (!this.form.city) {
                 this.errors.push("Ville requise");
@@ -79,37 +123,5 @@ export default {
             axios.post('http://127.0.0.1:5000/restaurant', this.form)
         }
     }
-    // return: {
-    // el: '#app',
-    // data: {
-    //     errors: [],
-    //     name: null,
-    //     city: null,
-    //     nbcouverts: null,
-    //     terrasse: null,
-    //     parking: null
-    // },
-    // },
-    // methods: {
-    //     checkForm: function (e) {
-    //         this.errors = [];
-
-    //         if (!this.name) {
-    //             this.errors.push("Name required");
-    //         }
-    //         if (!this.city) {
-    //             this.errors.push("City required");
-    //         }
-    //         if (!this.nbcouverts) {
-    //             this.errors.push("Name required");
-    //         }
-    //         if (!this.terrasse) {
-    //             this.errors.push("Terrasse required");
-    //         }
-    //         if (!this.parking) {
-    //             this.errors.push("Name required");
-    //         }
-    //     }
-    // }
 }
 </script>

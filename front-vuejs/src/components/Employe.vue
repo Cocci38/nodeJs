@@ -15,10 +15,10 @@
         </p>
         <p>
             <label for="hire_date">Date d'embauche</label>
-            <input type="date" id="hire_date" v-model="form.hire_date" />
+            <input type="date" min="1979-12-31" id="hire_date" v-model="form.hire_date" />
         </p>
         <p> Choisissez un restaurant
-            <select v-model="form.restaurant_id" >
+            <select v-model="form.restaurant_id" id="restaurant_id">
                 <option disabled value="" >Choisissez</option>
                 
                 <option :key="index" v-for="(restaurant, index) in restaurants" :value="restaurant.id_restaurants">
@@ -54,63 +54,61 @@ export default {
             .then((res) => (this.restaurants = res.data))
             .catch((error) => (this.restaurants = [{ name: "Erreur de chargement" }])
             );
-            // var bouton = document.getElementById('bouton');
-            // let last = document.querySelector('.c');
-            // let input = document.getElementById('first_name').addEventListener('input', (e) =>{
-            //     console.log(e.target.value);
-            //     last.innerHTML = e.target.value;
-            //     if (e.target.value) {
-                    
-            //     }
-            // })
-            // var input1 = document.getElementById('last_name');
-            var input2 = document.getElementById('first_name');
-            // bouton.disabled = true;
-            // console.log(input1);
-            // console.log(input2);
-            // input = input.addEventListener("change", statut)
-            // function statut(){
-                    // if (input.value == null) {
-                    //     console.log(input);
-                    //     bouton.disabled = true;
-                    // }
-                    // else{
-                    //     bouton.disabled = false;
-                    // }
-
-            // };
         },
     methods: {
         submit() {
-            // let bouton = document.getElementById('bouton');
-            let last = document.querySelector('.c');
+            let bouton = document.getElementById('bouton');
+            // let last = document.querySelector('.c');
             this.errors = [];
             let nomRegExp = RegExp('^[a-zA-Z-\']{3,}$', 'g');
-            let inputFirst_name = document.getElementById('first_name')
             // let testNom = nomRegExp.test(this.form.first_name);
             // if (testNom == false) {
             //     this.errors.push('Le nombre d\'écriture .');
             // }
-                inputFirst_name = document.getElementById('first_name').addEventListener('input', (e) =>{
-                    console.log(e.target.value);
-                    last.innerHTML = e.target.value;
-                    if (e.target.value == this.form.first_name.match(nomRegExp)) {
-                        bouton.disabled = false;
-                    }else {
-                        bouton.disabled = true;
-                    }
-            })
-            // if (!this.form.first_name || !this.form.last_name || !this.form.hire_date || !this.form.restaurant_id) {
-            //     bouton.disabled = true;
-            // } else {
-            //     bouton.disabled = false;
-            // }
+            if (this.errors) {
+                bouton.disabled = true;
+            }
+            var inputFirst_name = document.getElementById('first_name').addEventListener('input', (e) =>{
+                console.log(e.target.value);
+                // last.innerHTML = e.target.value;
+                if (e.target.value == this.form.first_name.match(nomRegExp)) {
+                    bouton.disabled = false;
+                }else {
+                    bouton.disabled = true;
+                }
+            });
+            var inputLast_name = document.getElementById('last_name').addEventListener('input', (e) =>{
+                console.log(e.target.value);
+                // last.innerHTML = e.target.value;
+                if (e.target.value == this.form.last_name.match(nomRegExp)) {
+                    bouton.disabled = false;
+                }else {
+                    bouton.disabled = true;
+                }
+            });
+            var inputHire_date = document.getElementById('hire_date').addEventListener('input', (e) =>{
+                console.log(e.target.value);
+                // last.innerHTML = e.target.value;
+                if (e.target.value == this.form.hire_date) {
+                    bouton.disabled = false;
+                }else {
+                    bouton.disabled = true;
+                }
+            });
+            var inputRestaurant_id = document.getElementById('restaurant_id').addEventListener('input', (e) =>{
+                console.log(e.target.value);
+                // last.innerHTML = e.target.value;
+                if (!this.form.restaurant_id) {
+                    bouton.disabled = false;
+                }else {
+                    bouton.disabled = true;
+                }
+            });
             if (this.form.first_name) {
                 if (this.form.first_name != this.form.first_name.match(nomRegExp)) {
                 console.log('erreur');
                 this.errors.push('Le nombre d\'écriture .');
                 }
-                
             }
             if(!this.form.first_name){
                 this.errors.push('Prénom requis.');
