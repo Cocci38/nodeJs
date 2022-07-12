@@ -28,6 +28,7 @@
         <p>
             <button id="bouton" type="submit">Valider</button>
         </p>
+        <span class="c"></span>
         </form>
     </div>
 </template>
@@ -54,9 +55,16 @@ export default {
             .catch((error) => (this.restaurants = [{ name: "Erreur de chargement" }])
             );
             // var bouton = document.getElementById('bouton');
-            // var input = document.getElementsByTagName('input');
+            // let last = document.querySelector('.c');
+            // let input = document.getElementById('first_name').addEventListener('input', (e) =>{
+            //     console.log(e.target.value);
+            //     last.innerHTML = e.target.value;
+            //     if (e.target.value) {
+                    
+            //     }
+            // })
             // var input1 = document.getElementById('last_name');
-            // var input2 = document.getElementById('first_name');
+            var input2 = document.getElementById('first_name');
             // bouton.disabled = true;
             // console.log(input1);
             // console.log(input2);
@@ -75,18 +83,23 @@ export default {
     methods: {
         submit() {
             // let bouton = document.getElementById('bouton');
-            // var input = document.getElementsByTagName('input');
+            let last = document.querySelector('.c');
             this.errors = [];
             let nomRegExp = RegExp('^[a-zA-Z-\']{3,}$', 'g');
+            let inputFirst_name = document.getElementById('first_name')
             // let testNom = nomRegExp.test(this.form.first_name);
             // if (testNom == false) {
             //     this.errors.push('Le nombre d\'écriture .');
             // }
-            // if (input != "") {
-            //     bouton.disabled = true;
-            // }else {
-            //     bouton.disabled = false;
-            // }
+                inputFirst_name = document.getElementById('first_name').addEventListener('input', (e) =>{
+                    console.log(e.target.value);
+                    last.innerHTML = e.target.value;
+                    if (e.target.value == this.form.first_name.match(nomRegExp)) {
+                        bouton.disabled = false;
+                    }else {
+                        bouton.disabled = true;
+                    }
+            })
             // if (!this.form.first_name || !this.form.last_name || !this.form.hire_date || !this.form.restaurant_id) {
             //     bouton.disabled = true;
             // } else {
@@ -97,6 +110,7 @@ export default {
                 console.log('erreur');
                 this.errors.push('Le nombre d\'écriture .');
                 }
+                
             }
             if(!this.form.first_name){
                 this.errors.push('Prénom requis.');
