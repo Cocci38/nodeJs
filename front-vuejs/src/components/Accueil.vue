@@ -96,11 +96,11 @@ this.update();
       cursor: pointer;
       width: auto;
       }
-      button:hover {
+      /* button:hover {
           background-color: white;
           color: #42b983;
           border: 1px solid #42b983;
-      }
+      } */
     @media screen and (max-width: 800px) {
         .container {
         width: 90%;
