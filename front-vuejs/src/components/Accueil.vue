@@ -1,20 +1,24 @@
 <template>
-  <div>
-    <router-link to="/resto">Ajouter un restaurant </router-link>
-    <router-link to="/employe">Ajouter un employe</router-link>
+<div class="home">
+  <div class="container">
+    <!-- <router-link to="/resto">Ajouter un restaurant </router-link>
+    <router-link to="/employe">Ajouter un employe</router-link> -->
     <h1>Liste de mes restaurants</h1>
     <!-- <p @click="increment">Il y a {{total}} restaurants</p> -->
-    <p :key="index" v-for="(restaurant, index) in restaurants">
-      {{ restaurant.name }} à {{ restaurant.city }} <br>
+    
+    <p :key="index" v-for="(restaurant, index) in restaurants" class="resto">
+      <br><strong>{{ restaurant.name }}</strong>
+      à {{ restaurant.city }} <br>
       {{ restaurant.nbcouverts }} couverts <br> Terrasse : {{ restaurant.terrasse }} <br>
       Parking : {{ restaurant.parking }} <br><button  v-on:click="suprim(restaurant.id_restaurants)"  >Supprimer le restaurant</button><br> <br>
-      <strong>Employes : </strong>
-      <span :key="index" v-for="(employe, index) in employes">
+      <strong>Employes : </strong><br>
+      <span :key="index" v-for="(employe, index) in employes" class="employe">
         <span v-if="restaurant.id_restaurants === employe.restaurant_id">
-          {{ employe.first_name }} {{ employe.last_name }} <button  v-on:click="suprimEmploye(employe.id_employes)" >X</button>
+          {{ employe.first_name }} {{ employe.last_name }}<button  v-on:click="suprimEmploye(employe.id_employes)" ><img src="../assets/Delete.png" alt="supprimer un employé" ></button>
         </span>
       </span>
     </p>
+  </div>
   </div>
 </template>
 
@@ -61,20 +65,48 @@ this.update();
   }
 };
 </script>
-
 <style scoped>
-h3 {
-  margin: 40px 0 0;
-}
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-a {
-  color: #42b983;
-}
+    .home {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+  .container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width:50%;
+      border: 1px solid #f1f1f1;
+      background: #fff;
+    }
+    .resto {
+      width: 90%;
+      border: 1px solid #f1f1f1;
+    }
+    img{
+      width: 20px;
+      color: #fff;
+    }
+  button {
+      background-color: #42b983;
+      color: white;
+      padding: 3px 6px;
+      margin: 8px 0;
+      border: none;
+      cursor: pointer;
+      width: auto;
+      }
+      button:hover {
+          background-color: white;
+          color: #42b983;
+          border: 1px solid #42b983;
+      }
+    @media screen and (max-width: 800px) {
+        .container {
+        width: 90%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    }
 </style>

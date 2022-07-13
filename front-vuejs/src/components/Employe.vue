@@ -19,7 +19,6 @@
         </p>
         <p> Choisissez un restaurant
             <select v-model="form.restaurant_id" id="restaurant_id">
-                <option disabled value="" >Choisissez</option>
                 
                 <option :key="index" v-for="(restaurant, index) in restaurants" :value="restaurant.id_restaurants">
                 {{restaurant.name}}</option>
@@ -141,3 +140,58 @@ export default {
     },
 };
 </script>
+<style scoped>
+    .hello {
+        width:400px;
+        margin:0 auto;
+        margin-top: 4%;
+    }
+    h1 {
+        text-align: center;
+    }
+    form {
+    width:100%;
+    padding: 30px;
+    border: 1px solid #f1f1f1;
+    background: #fff;
+    box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+    }
+    input[type=text], input[type=date], select {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    color: #2c3e50;
+    text-align: center;
+    font-size: 15px;
+    border: 1px solid #2c3e50;
+    box-sizing: border-box;
+    }
+    button {
+    background-color: #42b983;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    }
+    button:hover {
+        background-color: white;
+        color: #42b983;
+        border: 1px solid #42b983;
+    }
+    option {
+        color: #2c3e50;
+        text-align: center;
+        font-size: 15px;
+    }
+        @media screen and (max-width: 800px) {
+        .hello {
+        width:85%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    }
+</style>
