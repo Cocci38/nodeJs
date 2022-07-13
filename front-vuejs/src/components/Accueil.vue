@@ -3,7 +3,7 @@
   <div class="container">
     <!-- <router-link to="/resto">Ajouter un restaurant </router-link>
     <router-link to="/employe">Ajouter un employe</router-link> -->
-    <h1>Liste de mes restaurants</h1>
+    <h1>Liste des restaurants</h1>
     <!-- <p @click="increment">Il y a {{total}} restaurants</p> -->
     
     <p :key="index" v-for="(restaurant, index) in restaurants" class="resto">
@@ -11,7 +11,7 @@
       à {{ restaurant.city }} <button  v-on:click="suprim(restaurant.id_restaurants)" ><img src="../assets/Delete.png" alt="supprimer un restaurant" ></button><br>
       {{ restaurant.nbcouverts }} couverts <br> Terrasse : {{ restaurant.terrasse }} <br>
       Parking : {{ restaurant.parking }} <br><br> <br>
-      <strong>Employes : </strong><br>
+      <strong>Employés : </strong><br>
       <span :key="index" v-for="(employe, index) in employes" class="employe">
         <span v-if="restaurant.id_restaurants === employe.restaurant_id">
           {{ employe.first_name }} {{ employe.last_name }} <button  v-on:click="suprimEmploye(employe.id_employes)" ><img src="../assets/Delete.png" alt="supprimer un employé" ></button>
