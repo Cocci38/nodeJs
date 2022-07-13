@@ -20,10 +20,10 @@
         </p>
         <p class="terrasse"> Terrasse : <br>
             <label for="oui">Oui</label>
-            <input id="tOui" type="radio"  v-model="form.terrasse" value="oui">
+            <input id="tOui" type="radio" name="terrasse" v-model="form.terrasse" value="oui">
 
             <label for="non">Non</label>
-            <input id="tNon" type="radio" v-model="form.terrasse" value="non">
+            <input id="tNon" type="radio" name="terrasse" v-model="form.terrasse" value="non">
         </p>
         <p class="parking"> Parking : <br>
             <label for="oui">Oui</label>
@@ -59,18 +59,29 @@ export default {
         submit() {
             let bouton = document.getElementById('bouton');
             this.errors = [];
-            let nomRegExp = RegExp('^[a-zA-Z-\']{3,}$', 'g');
+            let nomRegExp = RegExp('^[a-zA-Z-\' ]{3,}$', 'g');
 
             if (this.errors) {
                 bouton.disabled = true;
+                bouton.style.backgroundColor = 'white';
+                bouton.style.color = '#cd3333';
+                bouton.style.border = ('1px solid #cd3333');
+            } else {
+                bouton.disabled = false;
             }
             var inputName = document.getElementById('name').addEventListener('input', (e) =>{
                 console.log(e.target.value);
                 // last.innerHTML = e.target.value;
                 if (e.target.value == this.form.name.match(nomRegExp)) {
                     bouton.disabled = false;
+                    bouton.style.backgroundColor = '#42b983';
+                    bouton.style.color = 'white';
+                    bouton.style.border = ('1px solid #42b983');
                 }else {
                     bouton.disabled = true;
+                    bouton.style.backgroundColor = 'white';
+                    bouton.style.color = '#cd3333';
+                    bouton.style.border = ('1px solid #cd3333');
                 }
             });
             var inputCity = document.getElementById('city').addEventListener('input', (e) =>{
@@ -78,17 +89,29 @@ export default {
                 // last.innerHTML = e.target.value;
                 if (e.target.value == this.form.city.match(nomRegExp)) {
                     bouton.disabled = false;
+                    bouton.style.backgroundColor = '#42b983';
+                    bouton.style.color = 'white';
+                    bouton.style.border = ('1px solid #42b983');
                 }else {
                     bouton.disabled = true;
+                    bouton.style.backgroundColor = 'white';
+                    bouton.style.color = '#cd3333';
+                    bouton.style.border = ('1px solid #cd3333');
                 }
             });
             var inputNbcouverts = document.getElementById('nbcouverts').addEventListener('input', (e) =>{
                 console.log(e.target.value);
                 // last.innerHTML = e.target.value;
-                if (!this.form.nbcouverts) {
+                if (this.form.nbcouverts <= 0) {
                     bouton.disabled = true;
+                    bouton.style.backgroundColor = 'white';
+                    bouton.style.color = '#cd3333';
+                    bouton.style.border = ('1px solid #cd3333');
                 }else {
                     bouton.disabled = false;
+                    bouton.style.backgroundColor = '#42b983';
+                    bouton.style.color = 'white';
+                    bouton.style.border = ('1px solid #42b983');
                 }
             });
             if (this.form.name) {
@@ -130,7 +153,7 @@ export default {
     .hello {
         width:400px;
         margin:0 auto;
-        margin-top: 4%;
+        margin-top: 2%;
     }
     h1 {
         text-align: center;

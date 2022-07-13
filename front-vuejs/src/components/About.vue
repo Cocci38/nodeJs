@@ -13,6 +13,7 @@
             <p>
                 La partie VueJs se trouve ici. Je devais afficher les restaurants et les employés ainsi que la possibilité de les supprimer.
                 J'ai également réalisé 2 formulaires, l'un pour insérer les restaurants et l'autre pour insérer les employés.
+                <br> <br>
                 J'ai également coder la validation des formulaires : 
                 Les noms / prénoms doivent avoir au moins 3 caractères parmi a-z A-Z – et '
                 Le nombre de couverts doit être un nombre.

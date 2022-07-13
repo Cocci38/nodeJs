@@ -8,13 +8,13 @@
     
     <p :key="index" v-for="(restaurant, index) in restaurants" class="resto">
       <br><strong>{{ restaurant.name }}</strong>
-      à {{ restaurant.city }} <br>
+      à {{ restaurant.city }} <button  v-on:click="suprim(restaurant.id_restaurants)" ><img src="../assets/Delete.png" alt="supprimer un restaurant" ></button><br>
       {{ restaurant.nbcouverts }} couverts <br> Terrasse : {{ restaurant.terrasse }} <br>
-      Parking : {{ restaurant.parking }} <br><button  v-on:click="suprim(restaurant.id_restaurants)"  >Supprimer le restaurant</button><br> <br>
+      Parking : {{ restaurant.parking }} <br><br> <br>
       <strong>Employes : </strong><br>
       <span :key="index" v-for="(employe, index) in employes" class="employe">
         <span v-if="restaurant.id_restaurants === employe.restaurant_id">
-          {{ employe.first_name }} {{ employe.last_name }}<button  v-on:click="suprimEmploye(employe.id_employes)" ><img src="../assets/Delete.png" alt="supprimer un employé" ></button>
+          {{ employe.first_name }} {{ employe.last_name }} <button  v-on:click="suprimEmploye(employe.id_employes)" ><img src="../assets/Delete.png" alt="supprimer un employé" ></button>
         </span>
       </span>
     </p>
