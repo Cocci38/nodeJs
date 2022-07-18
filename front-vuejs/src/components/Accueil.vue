@@ -88,7 +88,7 @@ this.update();
       color: #fff;
     }
   button {
-      background-color: #42b983;
+      background-color: #cd3333;
       color: white;
       padding: 3px 6px;
       margin: 8px 0;

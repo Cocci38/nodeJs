@@ -59,7 +59,7 @@ export default {
         submit() {
             let bouton = document.getElementById('bouton');
             this.errors = [];
-            let nomRegExp = RegExp('^[a-zA-Z-\' ]{3,}$', 'g');
+            let nomRegExp = RegExp('^[a-zA-Z-\' æœçéàèùâêîôûëïüÿÂÊÎÔÛÄËÏÖÜÀÆÇÉÈŒÙ]{3,}$', 'g');
 
             if (this.errors) {
                 bouton.disabled = true;
